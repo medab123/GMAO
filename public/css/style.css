@@ -1,0 +1,38 @@
+body:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-image: url("../ima");
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    background-size: cover;
+    filter: invert(1);
+}
+.nav-link {
+    color: #57a333 !important;
+}
+.nav-link:hover {
+    color: #ff7f11 !important;
+}
+.active-1 {
+    font-weight: 600;
+    border-bottom: 3px solid #ff7f11;
+    margin: 0 !important;
+}
+.card-body {
+    background-color: inherit !important;
+}
+.card-header {
+    background-color: inherit !important;
+}
+.card{
+    background-color: inherit !important;
+}
+th{
+    background-color: #ff7f11 !important;
+}

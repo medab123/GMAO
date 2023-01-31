@@ -1,0 +1,126 @@
+body:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-image: url("../img/BG_InventPro.svg");
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    background-size: cover;
+    filter: invert(1);
+}
+.nav-link {
+    color: #491102 !important;
+}
+.nav-link:hover {
+    color: #ff7f11 !important;
+}
+.active-1 {
+    font-weight: 600;
+    border-bottom: 3px solid #ff7f11;
+    margin: 0 !important;
+}
+.card-body {
+    background-color: inherit !important;
+    border: none !important ;
+}
+.card-header {
+    background-color: inherit !important;
+    border: none !important;
+}
+.card{
+    background-color: inherit !important;
+    border: none !important;
+}
+th{
+    background-color: #ff7f11 !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 200 !important;
+    font-size: 12px !important;
+}
+td{
+    font-size: 12px;
+    border: none !important;
+}
+.table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgba(255, 127, 17, 0.4);
+ }
+ .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgba(255, 255, 255, 1);
+ }
+ .btn{
+    font-size: 12px !important;
+    padding: 5px !important ;
+ }
+ .btn-success{
+    background-color: #ff7f11  !important;
+    border: none !important;
+ }
+ .btn-danger{
+    background-color: #491102  !important;
+    border: none !important;
+ }
+ .card > .card-header > h5{
+    display: none !important;
+ }
+.modal-body>form>div>div>div>input{
+    border: none;
+    background-color: inherit;
+    border-radius: 20px;
+    border-bottom: 2px solid #ff7f11;
+}
+.modal-body>form>div>div>div>select{
+    border: none;
+    background-color: inherit;
+    border-radius: 20px;
+    border-bottom: 2px solid #ff7f11;
+}
+.modal-body>form>div>div>div>textarea{
+    border: none;
+    background-color: inherit;
+    border-radius: 20px;
+    border-bottom: 2px solid #ff7f11;
+}
+.modal-body>form>div>div>div>label{
+    border: none;
+    background-color: inherit;
+    border-radius: 20px;
+    border-bottom: 2px solid #ff7f11;
+    width: 100%;
+    padding:4px 0 4px 10px;
+}
+.btnjqx{
+    background-color: #491102 !important;
+    color:#ff7f11 !important;
+}
+footer {
+    padding: 20px;
+}
+.color-orange {
+    color: #ff7f11;
+}
+
+.color-02 {
+    color: #491102;
+}
+
+.color-03 {
+    color: #904c2e;
+}
+
+.bg-orange {
+    background-color: #ff7f11;
+}
+.footer {
+    padding: 0px 140px 0px 122px;color: white ;
+}
+@media screen and (max-width: 600px) {
+    .footer {
+        padding: 0 ;
+    }
+}
