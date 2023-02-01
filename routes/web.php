@@ -57,7 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/typeIntervontions/{id}', [TypeIntervontionController::class,"update"])->name("typeIntervontions.update2");
     Route::resource('typeIntervontions', TypeIntervontionController::class,["names"=>"typeIntervontions"]);
     
+    Route::get('/demandes/open/{id}', [DemandeController::class,"open"])->name("demandes.open");
     Route::DELETE('/demandes/techniciens/{id}', [DemandeController::class,"removeTechnicien"])->name("demandes.removeTechnicien");
+    Route::get('/demandes/history', function(){ $demande = new DemandeController(); return $demande->index(true); })->name("demandes.history");
     Route::post('/demandes/{id}/addTechnicien', [DemandeController::class,"addTechnicien"])->name("demandes.addTechnicien");
     Route::get('/demandes/refreshTable', [DemandeController::class,"refreshTable"])->name("demandes.refreshTable");
     Route::post('/demandes/{id}', [DemandeController::class,"update"])->name("demandes.update2");

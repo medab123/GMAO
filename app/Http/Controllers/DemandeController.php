@@ -25,14 +25,26 @@ class DemandeController extends Controller
         $this->middleware('permission:resource-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:resource-delete', ['only' => ['destroy']]);*/
     }
-    public function index()
+    public function index($history = false)
     {
-        $demandes = Demande::join("machins as m", "m.id", "demandes.machine_id")
+        if($history == true){
+            $demandes = Demande::join("machins as m", "m.id", "demandes.machine_id")
             ->join("users as d", "d.id", "demandes.demandeur_id")
             ->join("niveau_intervontions as n", "n.id", "demandes.niveau_intervontion_id")
             ->join("type_intervontions as t", "t.id", "demandes.type_intervontion_id")
             ->select("demandes.*", "m.name as machine", "d.name as demondeur_name", "d.email as email", "n.name as niveau_intervontion", "t.name as type_intervontion")
+            ->where("demandes.status",2)
             ->orderBy('id', 'DESC')->with("techniciens")->get();
+        }else{
+            $demandes = Demande::join("machins as m", "m.id", "demandes.machine_id")
+            ->join("users as d", "d.id", "demandes.demandeur_id")
+            ->join("niveau_intervontions as n", "n.id", "demandes.niveau_intervontion_id")
+            ->join("type_intervontions as t", "t.id", "demandes.type_intervontion_id")
+            ->select("demandes.*", "m.name as machine", "d.name as demondeur_name", "d.email as email", "n.name as niveau_intervontion", "t.name as type_intervontion")
+            ->where("demandes.status" ,"!=",2)
+            ->orderBy('id', 'DESC')->with("techniciens")->get();
+        }
+        
         //dd($demandes);
         $typeIntervontions = TypeIntervontion::all();
         $machines = Machin::all();
@@ -173,14 +185,34 @@ class DemandeController extends Controller
         $affectation->save();
         return back()->with(["status"=>"success","message"=>"Technicien ajouter avec success"]);
     }
-    public function refreshTable()
+    public function open($id)
     {
-        $demandes = Demande::join("machins as m", "m.id", "demandes.machine_id")
+        // $affectation_id = $request->input("affectation_id");
+        $demande = Demande::find($id);
+        $demande->status = 1;
+        $demande->opened_at = now();
+        $demande->save();
+        return back()->with(["status"=>"success","message"=>"demanded ouvri avec success"]);
+    }
+    public function refreshTable($history = false)
+    {
+        if($history == true){
+            $demandes = Demande::join("machins as m", "m.id", "demandes.machine_id")
             ->join("users as d", "d.id", "demandes.demandeur_id")
             ->join("niveau_intervontions as n", "n.id", "demandes.niveau_intervontion_id")
             ->join("type_intervontions as t", "t.id", "demandes.type_intervontion_id")
             ->select("demandes.*", "m.name as machine", "d.name as demondeur_name", "d.email as email", "n.name as niveau_intervontion", "t.name as type_intervontion")
-            ->orderBy('id', 'DESC')->get();
+            ->where("demandes.status",2)
+            ->orderBy('id', 'DESC')->with("techniciens")->get();
+        }else{
+            $demandes = Demande::join("machins as m", "m.id", "demandes.machine_id")
+            ->join("users as d", "d.id", "demandes.demandeur_id")
+            ->join("niveau_intervontions as n", "n.id", "demandes.niveau_intervontion_id")
+            ->join("type_intervontions as t", "t.id", "demandes.type_intervontion_id")
+            ->select("demandes.*", "m.name as machine", "d.name as demondeur_name", "d.email as email", "n.name as niveau_intervontion", "t.name as type_intervontion")
+            ->where("demandes.status" ,"!=",2)
+            ->orderBy('id', 'DESC')->with("techniciens")->get();
+        }
         return view("Demandes.table", compact('demandes'));
     }
 }

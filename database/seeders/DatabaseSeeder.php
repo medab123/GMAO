@@ -26,10 +26,15 @@ class DatabaseSeeder extends Seeder
             'role-create',
             'role-edit',
             'role-delete',
+            'user-list',
+            'user-create',
+            'user-edit',
+            'user-delete',
             'demande-list',
             'demande-create',
             'demande-edit',
             'demande-delete',
+            'demande-suivi',
             'resource-list',
             'resource-create',
             'resource-edit',
@@ -58,7 +63,17 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::create(['name' => 'responsable']);
         $permissions = Permission::pluck('id', 'id')->all();
-        $role->syncPermissions($permissions);
+        $role->syncPermissions([
+            'demande-list',
+            'demande-create',
+            'demande-edit',
+            'demande-delete',
+            'demande-suivi',
+            'resource-list',
+            'resource-create',
+            'resource-edit',
+            'resource-delete'
+        ]);
         $responsable->assignRole([$role->id]);
 
         $technicien = User::create([
@@ -69,7 +84,7 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::create(['name' => 'technicien']);
         $permissions = Permission::pluck('id', 'id')->all();
-        $role->syncPermissions($permissions);
+        $role->syncPermissions(['demande-list','demande-suivi']);
         $technicien->assignRole([$role->id]);
 
 
@@ -81,7 +96,7 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::create(['name' => 'user']);
         $permissions = Permission::pluck('id', 'id')->all();
-        $role->syncPermissions($permissions);
+        $role->syncPermissions(['demande-list','demande-create','demande-edit','resource-list','resource-create']);
         $user->assignRole([$role->id]);
 
 
@@ -92,13 +107,16 @@ class DatabaseSeeder extends Seeder
             'description' => 'TESSTS DQ',
         ]);
         $typeIntervontion = TypeIntervontion::create([
-            'name' => 'prevontive',
+            'name' => 'preventive',
         ]);
         $typeIntervontion = TypeIntervontion::create([
             'name' => 'corrective',
         ]);
+        $typeIntervontion = TypeIntervontion::create([
+            'name' => 'amelioration ',
+        ]);
         NiveauIntervontion::create([
-            "name" => "Automaticien",
+            "name" => "Automatisme",
             "description" => "Automatisme",
         ]);
         NiveauIntervontion::create([
@@ -106,8 +124,12 @@ class DatabaseSeeder extends Seeder
             "description" => "Electriciti",
         ]);
         NiveauIntervontion::create([
-            "name" => "Fregoriste",
-            "description" => "Fregoriste",
+            "name" => "Frigoriste",
+            "description" => "Frigoriste",
+        ]);
+        NiveauIntervontion::create([
+            "name" => "plomberie",
+            "description" => "plomberie",
         ]);
     }
 }

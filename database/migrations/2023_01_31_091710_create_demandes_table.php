@@ -25,6 +25,8 @@ return new class extends Migration
             $table->unsignedBigInteger('type_intervontion_id')->nullable();
             $table->foreign('type_intervontion_id')->references('id')->on('type_intervontions')->onDelete('cascade');
             $table->integer('status')->default(0);
+            $table->dateTime("opened_at")->nullable();
+            $table->dateTime("closed_at")->nullable();
             $table->timestamps();
         });
     }

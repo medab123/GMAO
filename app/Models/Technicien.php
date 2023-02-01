@@ -15,7 +15,7 @@ class Technicien extends Model
     ];
     public function niveau()
     {
-        return $this->hasOne(NiveauIntervontion::class,"id","niveau_intervontion_id");
+        return $this->hasMany(NiveauIntervontion::class,"id","niveau_intervontion_id");
     }
     public function user()
     {

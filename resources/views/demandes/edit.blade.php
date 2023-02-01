@@ -39,12 +39,27 @@
                 <form method="POST" action="{{ route('suivis.newStore', ['id' => $demande->id]) }}">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="" class="form-label" >Etat</label>
-                            <select type="text" class="form-control" name="status">
-                                <option value="1" selected>Suivi</option>
-                                <option value="2" {{ $demande->status == 2 ? 'selected' : '' }}>Resolu</option>
-                            </select>
+                            <label for="" class="form-label">Message</label>
+                            <textarea class="form-control" id="" rows="3" name="message" required></textarea>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="closeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter Suivi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" action="{{ route('suivis.newStore', ['id' => $demande->id]) }}">
+                    <div class="modal-body">
                         <div class="mb-3">
                             <label for="" class="form-label">Message</label>
                             <textarea class="form-control" id="" rows="3" name="message" required></textarea>
@@ -98,7 +113,7 @@
                                     <th>#</th>
                                     <th>Machine</th>
                                     <th>Intervontion Niveau</th>
-                                    <th>Description</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,7 +121,7 @@
                                     <td>{{ $demande->id }}</td>
                                     <td>{{ $demande->machine->name }}</td>
                                     <td>{{ $demande->niveau->name }}</td>
-                                    <td>{{ $demande->description }}</td>
+                                    
                                 </tr>
                             </tbody>
 
@@ -134,7 +149,10 @@
                                     <tr>
                                         <td>{{ $technicien->id }}</td>
                                         <td>{{ $technicien->name }}</td>
-                                        <td>{{ $modelTechnicien::where('user_id', $technicien->id)->with('niveau')->first()->niveau->name }}
+                                        <td>@foreach($modelTechnicien::where('user_id', $technicien->id)->with('niveau') as $niveau)
+                                            <span class="badge badge-success">{{ $niveau->niveau->name }}</span>
+                                            @endforeach
+                                            
                                         </td>
                                         <td><button title="Supprimer"
                                                 onclick="deleteDemande('{{ $demande->id }}','{{ $technicien->id }}',this)"
@@ -159,10 +177,18 @@
                 <div class="card-header px-0">
                     <h4 class="float-left">Suivi</h4>
                     @if ($demande->status < 2)
-                        <button class="btn btn-sm btn-success float-right" data-bs-toggle="modal"
+                        <button class="btn btn-sm btn-success float-right ml-1" data-bs-toggle="modal"
                             data-bs-target="#suiviModal">Ajouter</button>
-                    @else 
-                    <button class="btn btn-sm btn-danger float-right disabled" disabled>Closed</button>
+                        @if ($demande->status < 1)
+                            <a class="btn btn-sm btn-primary float-right ml-1 text-white"
+                                href="{{ route('demandes.open', ['id' => $demande->id]) }}">Ouvrir</a>
+                        @endif
+                        @if ($demande->status == 1)
+                            <button class="btn btn-sm btn-danger float-right ml-1" data-bs-toggle="modal"
+                                data-bs-target="#closeModal">Close</button>
+                        @endif
+                    @else
+                        <button class="btn btn-sm btn-danger float-right disabled" disabled>Closed</button>
                     @endif
 
                 </div>
@@ -175,7 +201,8 @@
                             <br>
                         @else
                             <div class=" row text-left bg-primary p-2  rounded">
-                                <strong class="text-light">{{ $suivi->message }}</strong><br><small class="text-light">{{ $suivi->created_at }}</small>
+                                <strong class="text-light">{{ $suivi->message }}</strong><br><small
+                                    class="text-light">{{ $suivi->created_at }}</small>
                             </div><br>
                         @endif
                     @endforeach

@@ -36,9 +36,6 @@ class SuiviController extends Controller
      */
     public function store(Request $request,$id)
     {
-        $demande = Demande::find($id);
-        $demande->status = $request->input("status");
-        $demande->save();
         $suivi = new suivi();
         $suivi->demande_id = $id;
         $suivi->sender_id = \Auth::user()->id;
