@@ -13,4 +13,12 @@ class Technicien extends Model
         'niveau_intervontion_id',
         
     ];
+    public function niveau()
+    {
+        return $this->hasOne(NiveauIntervontion::class,"id","niveau_intervontion_id");
+    }
+    public function user()
+    {
+        return $this->hasOne(User::class,"id","user_id");
+    }
 }

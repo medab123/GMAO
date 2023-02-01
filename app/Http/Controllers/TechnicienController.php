@@ -97,8 +97,10 @@ class TechnicienController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $machin = Technicien::find($id);
-        $machin->name = $request->input('name');
+        $machin->niveau_intervontion_id = $request->input('niveau_intervontion_id');
+        $machin->user_id = $request->input('user_id');
         // $machin->description = $request->input('description');
         $machin->update();
         return response()->json(["status" => "success"]);
@@ -130,7 +132,7 @@ class TechnicienController extends Controller
     {
         $techniciens = Technicien::join("niveau_intervontions", "niveau_intervontions.id", "techniciens.niveau_intervontion_id")
             ->join("users", "users.id", "techniciens.user_id")
-            ->select("users.*", "niveau_intervontions.name as niveau")
+            ->select("techniciens.id","users.name as username", "niveau_intervontions.name as niveau")
             ->orderBy('id', 'DESC')->get();
         return view("techniciens.table", compact('techniciens'));
     }

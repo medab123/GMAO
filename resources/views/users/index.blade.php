@@ -23,8 +23,6 @@
                             <th>Action</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <!---<th>Ville</th>--->
-                            <th>Type inventaire</th>
                             <th>Role</th>
                         </tr>
                     </thead>
@@ -74,12 +72,7 @@
                                     {!! Form::select('roles[]', $roles, [], ['class' => 'form-control', 'multiple']) !!}
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Type Inventaire:</strong>
-                                    {!! Form::select('type_inv_ids[]', $type_invs, [], ['class' => 'form-control', 'multiple']) !!}
-                                </div>
-                            </div>
+                          
 
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <button id="modalButtonSupmit" type="submit" class="btn btn-primary">Ajouter</button>

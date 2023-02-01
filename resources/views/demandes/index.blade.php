@@ -75,12 +75,15 @@
                                 <tr style="background-color: #FDFFFF">
                                     <th>#</th>
                                     <th>Actions</th>
+                                    <th>Date creation</th>
+                                    <th>Date modification</th>
                                     <th>Machine</th>
                                     <th>Type </th>
                                     <th>Niveau</th>
                                     <th>Demandeur</th>
                                     <th>Description</th>
-                                    
+                                    <th>Techniciens</th>
+                                    <th>Etate</th>
                                 </tr>
                             </thead>
                             @include('demandes.table')

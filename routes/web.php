@@ -4,9 +4,12 @@ use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\MachinController;
 use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SousAffectationController;
+use App\Http\Controllers\SuiviController;
 use App\Http\Controllers\TechnicienController;
 use App\Http\Controllers\TypeIntervontionController;
 
@@ -37,8 +40,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::view('about', 'about')->name('about');
-
+    Route::get('/roles/refreshTable', [RoleController::class, 'refreshTable'])->name("roles.refreshTable");
+    Route::get('users/refreshTable', [UserController::class,"refreshTable"])->name("users.refreshTable");
     Route::resource('users', UserController::class , ["names"=>"users"]) ;
+    Route::resource('roles', RoleController::class, ["names"=>"roles"]);
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update2');
@@ -51,7 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/typeIntervontions/refreshTable', [TypeIntervontionController::class,"refreshTable"])->name("typeIntervontions.refreshTable");
     Route::post('/typeIntervontions/{id}', [TypeIntervontionController::class,"update"])->name("typeIntervontions.update2");
     Route::resource('typeIntervontions', TypeIntervontionController::class,["names"=>"typeIntervontions"]);
-
+    
+    Route::DELETE('/demandes/techniciens/{id}', [DemandeController::class,"removeTechnicien"])->name("demandes.removeTechnicien");
+    Route::post('/demandes/{id}/addTechnicien', [DemandeController::class,"addTechnicien"])->name("demandes.addTechnicien");
     Route::get('/demandes/refreshTable', [DemandeController::class,"refreshTable"])->name("demandes.refreshTable");
     Route::post('/demandes/{id}', [DemandeController::class,"update"])->name("demandes.update2");
     Route::resource('demandes', DemandeController::class,["names"=>"demandes"]);
@@ -63,6 +70,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/technciens/refreshTable', [TechnicienController::class,"refreshTable"])->name("technciens.refreshTable");
     Route::post('/technciens/{id}', [TechnicienController::class,"update"])->name("technciens.update2");
     Route::resource('technciens', TechnicienController::class,["names"=>"technciens"]);
+
+    Route::get('/suivis/refreshTable', [SuiviController::class,"refreshTable"])->name("suivis.refreshTable");
+    Route::post('/suivis/{id}', [SuiviController::class,"store"])->name("suivis.newStore");
+    Route::resource('suivis', SuiviController::class,["names"=>"suivis"]);
 
     
     

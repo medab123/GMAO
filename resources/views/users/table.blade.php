@@ -15,13 +15,7 @@
             </td>
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
-            <td>
-                @if ($user->type_inv_ids != null)
-                    @foreach ($user->type_inv_ids as $type)
-                        <span class="badge bg-primary">{{ $model::find($type)->name ?? '' }}</span>
-                    @endforeach
-                @endif
-            </td>
+            
             <td>
                 @if (!empty($user->getRoleNames()))
                     @foreach ($user->getRoleNames() as $v)

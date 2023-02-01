@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class demandeTechnicien extends Model
+class suivi extends Model
 {
     use HasFactory;
-    public function users()
-    {
-        return $this->hasMany(User::class,"user_id","id");
-    }
 }

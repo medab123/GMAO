@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('machine_id')->references('id')->on('machins')->onDelete('cascade');
             $table->unsignedBigInteger('type_intervontion_id')->nullable();
             $table->foreign('type_intervontion_id')->references('id')->on('type_intervontions')->onDelete('cascade');
-            $table->string('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
