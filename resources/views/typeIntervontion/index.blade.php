@@ -36,8 +36,10 @@
             <div class="card">
                 <div class="card-header ">
                     <h5 class="py-2"> Type Intervontion</h5>
+                    @can('resource-create')
                     <button onclick="openModalTypeInterAjouter()" class="btn btn-success btn-sm float-end">Ajouter un nouveau
                         Type Intervontion</button>
+                        @endcan
                 </div>
                 <div class="card-body custom-scrollbar">
                     <div class="table-responsive-sm" style="overflow-x: scroll; max-height: 60vh;">

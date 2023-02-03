@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/roles/refreshTable', [RoleController::class, 'refreshTable'])->name("roles.refreshTable");
     Route::get('users/refreshTable', [UserController::class,"refreshTable"])->name("users.refreshTable");
     Route::resource('users', UserController::class , ["names"=>"users"]) ;
+    Route::post('/roles/{id}', [RoleController::class,"update"]);
     Route::resource('roles', RoleController::class, ["names"=>"roles"]);
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');

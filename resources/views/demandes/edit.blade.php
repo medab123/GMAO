@@ -145,12 +145,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($demande->techniciens as $technicien)
+                                @foreach ($techniciensDemande as $technicien)
                                     <tr>
                                         <td>{{ $technicien->id }}</td>
-                                        <td>{{ $technicien->name }}</td>
-                                        <td>@foreach($modelTechnicien::where('user_id', $technicien->id)->with('niveau') as $niveau)
-                                            <span class="badge badge-success">{{ $niveau->niveau->name }}</span>
+                                        <td>{{ $technicien->user->name }}</td>
+                                        
+                                        <td>
+                                            @foreach( $technicien->niveau as  $niveaus)
+                                            <span class="badge badge-success">{{$niveaus->name}}</span>
                                             @endforeach
                                             
                                         </td>

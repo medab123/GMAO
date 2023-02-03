@@ -41,8 +41,11 @@
             <div class="card">
                 <div class="card-header ">
                     <h5 class="py-2"> Niveau d'Intervontions</h5>
-                    <button onclick="openModalNiveauIntervontionAjouter()" class="btn btn-success btn-sm float-end">Ajouter un nouveau
-                        Niveau d'ntervontions</button>
+                    @can('resource-create')
+                        <button onclick="openModalNiveauIntervontionAjouter()" class="btn btn-success btn-sm float-end">Ajouter
+                            un nouveau
+                            Niveau d'ntervontions</button>
+                    @endcan
                 </div>
                 <div class="card-body custom-scrollbar">
                     <div class="table-responsive-sm" style="overflow-x: scroll; max-height: 60vh;">

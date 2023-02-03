@@ -59,8 +59,8 @@
             };
         })(jQuery, window);
     </script>
-   
-@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 </head>
 
@@ -96,12 +96,10 @@
                             </div>
                         @endcan
                         @can('demande-list')
-                        <li class="nav-item"><a
-                            class="nav-link {{ request()->routeIs('demande.index') ? 'active-1' : '' }}"
-                            href="{{ route('demandes.index') }}">Demandes</a></li>
                             <div class="dropdown nav-item">
-                                <a class="nav-link  dropdown-toggle {{ request()->routeIs('demande.index') ? 'active-1' : '' }}"" href="#" role="button" id="dropdownMenuLink"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link  dropdown-toggle {{ request()->routeIs('demandes.*') ? 'active-1' : '' }}""
+                                    href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     Demandes
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="z-index: 1;">
@@ -112,26 +110,29 @@
                         @endcan
                         @can('user-list')
                             <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('users.index') ? 'active-1' : '' }}"
+                                    class="nav-link {{ request()->routeIs('users.*') ? 'active-1' : '' }}"
                                     href="{{ route('users.index') }}">Gérer les utilisateurs</a></li>
                         @endcan
                         @can('role-list')
                             <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('roles.index') ? 'active-1' : '' }}"
+                                    class="nav-link {{ request()->routeIs('roles.*') ? 'active-1' : '' }}"
                                     href="{{ route('roles.index') }}">Gérer les rôles</a></li>
                         @endcan
 
                         @can('resource-list')
-                            <div class="dropdown nav-item">
-                                <a class="nav-link  dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            <div class="dropdown nav-item {{ (request()->routeIs('machines.*') || request()->routeIs('technciens.*') || request()->routeIs('typeIntervontions.*') || request()->routeIs('niveauIntervontions.*')) ? 'active-1' : '' }}">
+                                <a class="nav-link  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" 
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Ressources
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="z-index: 1;">
                                     <li><a class="dropdown-item" href="{{ route('machines.index') }}">Machines</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('technciens.index') }}">Techniciens</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('typeIntervontions.index') }}">Type d'intervontions</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('niveauIntervontions.index') }}">Niveau d'intervontions</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('technciens.index') }}">Techniciens</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('typeIntervontions.index') }}">Type
+                                            d'intervontions</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('niveauIntervontions.index') }}">Niveau
+                                            d'intervontions</a></li>
                                 </ul>
                             </div>
                         @endcan

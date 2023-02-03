@@ -15,7 +15,7 @@
                                         placeholder="Nom de machine" name="machine_id">
                                         <option value="">Choisire une machine .. </option>
                                         @foreach ($machines as $machine)
-                                            <option value="{{$machine->id}}">{{$machine->name}}</option>
+                                            <option value="{{ $machine->id }}">{{ $machine->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -26,7 +26,7 @@
                                         placeholder="niveau intervontion " name="niveau_intervontion_id">
                                         <option value="">Choisire le niveau d'intervontion .. </option>
                                         @foreach ($niveaus as $niveau)
-                                            <option value="{{$niveau->id}}">{{$niveau->name}}</option>
+                                            <option value="{{ $niveau->id }}">{{ $niveau->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -37,15 +37,16 @@
                                         placeholder="Nom de type" name="type_intervontion_id">
                                         <option value="">Choisire une type .. </option>
                                         @foreach ($typeIntervontions as $typeIntervontion)
-                                            <option value="{{$typeIntervontion->id}}">{{$typeIntervontion->name}}</option>
+                                            <option value="{{ $typeIntervontion->id }}">{{ $typeIntervontion->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-5 col-sm-6 col-xm-12  ">
                                 <div class="form-group">
-                                    <textarea type="text" rows="1" class="form-control form-control-sm"
-                                        placeholder="Description du probleme" name="description"></textarea>
+                                    <textarea type="text" rows="1" class="form-control form-control-sm" placeholder="Description du probleme"
+                                        name="description"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -65,8 +66,10 @@
             <div class="card">
                 <div class="card-header ">
                     <h5 class="py-2"> Demandes</h5>
-                    <button onclick="openModalDemandeAjouter()" class="btn btn-success btn-sm float-end">Ajouter un nouveau
-                        Demandes</button>
+                    @can('demande-create')
+                        <button onclick="openModalDemandeAjouter()" class="btn btn-success btn-sm float-end">Ajouter un nouveau
+                            Demandes</button>
+                    @endcan
                 </div>
                 <div class="card-body custom-scrollbar">
                     <div class="table-responsive-sm" style="overflow-x: scroll; max-height: 60vh;">

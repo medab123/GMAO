@@ -127,8 +127,11 @@ class DemandeController extends Controller
         //dd($techniciens);
         $demandeur = Demande::with("demandeur")->find($id)->demandeur;
         $demande = Demande::with("techniciens", "machine", "niveau")->find($id);
-        $modelTechnicien = new Technicien();
-        return view("demandes.edit", compact("demande", "demandeur", "modelTechnicien","techniciens","suivis"));
+        $techniciensDemande = Technicien::whereIn("user_id",json_decode(json_encode($demande->techniciens->pluck("id"))))->with("niveau","user")->get();
+        
+        //dd($techniciensDemande);
+
+        return view("demandes.edit", compact("demande", "demandeur","techniciens","suivis","techniciensDemande"));
     }
 
     /**

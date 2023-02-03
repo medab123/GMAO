@@ -41,8 +41,10 @@
             <div class="card">
                 <div class="card-header ">
                     <h5 class="py-2"> Machine</h5>
-                    <button onclick="openModalMachineAjouter()" class="btn btn-success btn-sm float-end">Ajouter un nouveau
-                        Machine</button>
+                    @can('resource-create')
+                        <button onclick="openModalMachineAjouter()" class="btn btn-success btn-sm float-end">Ajouter un nouveau
+                            Machine</button>
+                    @endcan
                 </div>
                 <div class="card-body custom-scrollbar">
                     <div class="table-responsive-sm" style="overflow-x: scroll; max-height: 60vh;">

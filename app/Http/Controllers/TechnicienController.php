@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NiveauIntervontion;
+use App\Models\NiveauTechnicien;
 use App\Models\Technicien;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,18 +17,16 @@ class TechnicienController extends Controller
      */
     function __construct()
     {
-        /* $this->middleware('permission:resource-list|resource-create|resource-edit|resource-delete|resource-search', ['only' => ['index', 'show']]);
+        $this->middleware('permission:resource-list|resource-create|resource-edit|resource-delete', ['only' => ['index', 'show']]);
         $this->middleware('permission:resource-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:resource-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:resource-delete', ['only' => ['destroy']]);*/
+        $this->middleware('permission:resource-delete', ['only' => ['destroy']]);
     }
     public function index()
     {
         $niveaus = NiveauIntervontion::all();
         $users = User::all();
-        $techniciens = Technicien::join("niveau_intervontions", "niveau_intervontions.id", "techniciens.niveau_intervontion_id")
-            ->join("users", "users.id", "techniciens.user_id")
-            ->select("techniciens.id","users.name as username", "niveau_intervontions.name as niveau")
+        $techniciens = Technicien::with("user","niveau")
             ->orderBy('id', 'DESC')->get();
         //dd($techniciens);
 
@@ -56,11 +55,19 @@ class TechnicienController extends Controller
             'user_id' => 'required',
             //'affectation_id'=> 'required',
         ]);
-        $machin = new Technicien([
-            'niveau_intervontion_id' => $request->get('niveau_intervontion_id'),
+        //dd($request->get('niveau_intervontion_id'));
+        $Technicien = new Technicien([
+            'niveau_intervontion_id' => json_encode($request->get('niveau_intervontion_id')),
             'user_id' => $request->get('user_id'),
         ]);
-        $machin->save();
+        $Technicien->save();
+        foreach($request->input('niveau_intervontion_id') as $niveaus){
+            $niveauTechnicien = new NiveauTechnicien();
+            $niveauTechnicien->niveau_intervontion_id = $niveaus;
+            $niveauTechnicien->technicien_id =$Technicien->id;
+            $niveauTechnicien->save();
+        }
+        
         //return redirect('/techniciens')->with('success',' la Sous Affectation a été ajouté avec succès');
         return response()->json(["status" => "success"]);
     }
@@ -98,11 +105,11 @@ class TechnicienController extends Controller
     public function update(Request $request, $id)
     {
         
-        $machin = Technicien::find($id);
-        $machin->niveau_intervontion_id = $request->input('niveau_intervontion_id');
-        $machin->user_id = $request->input('user_id');
+        $Technicien = Technicien::find($id);
+        $Technicien->niveau_intervontion_id = ($request->input('niveau_intervontion_id'));
+        $Technicien->user_id = $request->input('user_id');
         // $machin->description = $request->input('description');
-        $machin->update();
+        $Technicien->update();
         return response()->json(["status" => "success"]);
     }
 

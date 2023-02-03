@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('niveau_intervontion_id')->nullable();
-            $table->foreign('niveau_intervontion_id')->references('id')->on('niveau_intervontions')->onDelete('cascade');
+            $table->json('niveau_intervontion_id');
+           
             $table->timestamps();
         });
     }

@@ -23,8 +23,8 @@
                             </div>
                             <div class="col-md-5 col-sm-6 col-xm-12  ">
                                 <div class="form-group">
-                                    <select type="text" class="sous_affectation form-control form-control-sm"
-                                        placeholder="Nom de la machine" name="niveau_intervontion_id" required>
+                                    <select type="text" class="sous_affectation form-control form-control-sm multiple"
+                                        placeholder="Nom de la machine" name="niveau_intervontion_id[]" required multiple>
                                         <option value="">Choisir le role de technicien</option>
                                         @foreach($niveaus as $niveau)
                                         <option value="{{ $niveau->id}}">{{ $niveau->name}}</option>
@@ -51,8 +51,10 @@
             <div class="card">
                 <div class="card-header ">
                     <h5 class="py-2"> Techniciens</h5>
+                    @can('resource-create')
                     <button onclick="openModalTechnicienAjouter()" class="btn btn-success btn-sm float-end">Ajouter un nouveau
                         Techniciens</button>
+                        @endcan
                 </div>
                 <div class="card-body custom-scrollbar">
                     <div class="table-responsive-sm" style="overflow-x: scroll; max-height: 60vh;">
